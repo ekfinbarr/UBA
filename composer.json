@@ -1,0 +1,7 @@
+{
+  "name": "ekfinbarr/UBA",
+  "description": "DHL Express Rate for Magento 2",
+  "require": {
+      "php": ">=7.4"
+  }
+}
