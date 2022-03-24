@@ -1,0 +1,39 @@
+<div id="uba-dhlexpress-deliveryoptions-info" data-bind="if: showDeliveryTimes() && timesEnabled() || showDeliveryServices()">
+    <div class="step-title" data-bind="i18n: 'DHL Delivery Options'"></div>
+
+    <div id="uba-dhlexpress-deliverytimes-info" data-bind="if: showDeliveryTimes() && timesEnabled()">
+        <div data-bind="if: showDayTimes()">
+            <p>
+                <span data-bind="i18n: 'Preferred moment of delivery'"></span>
+                <select data-bind="options: dayTimes,
+                                   optionsText: 'displayLabel',
+                                   value: selectedTime"></select>
+            </p>
+        </div>
+        <div data-bind="if: showNightTimes()">
+            <p>
+                <span data-bind="i18n: 'Preferred moment of delivery'"></span>
+                <select data-bind="options: nightTimes,
+                                   optionsText: 'displayLabel',
+                                   value: selectedTime"></select>
+            </p>
+        </div>
+        <div id="uba-dhlexpress-deliverytimes-info-error" data-bind="i18n: 'Please choose the moment of delivery'" style="display: none;"></div>
+    </div>
+
+    <div id="uba-dhlexpress-deliveryservices-info"  data-bind="if: showDeliveryServices()">
+        <p>
+            <span data-bind="i18n: 'Extra services'"></span>
+        </p>
+        <div id="uba-dhlexpress-delivery-service-options" data-bind="foreach: serviceData">
+            <div class="uba-dhlexpress-delivery-service-option" data-bind="css: { 'uba-dhlexpress-delivery-service-option-disable': enable() == false }">
+                <input type="checkbox" data-bind="checked: $parent.selectedServices, enable: enable, value: value"/>
+                <div class="uba-dhlexpress-delivery-service-option-price" data-bind="text: price"></div>
+                <div class="uba-dhlexpress-delivery-service-option-icon"><img alt="icon" data-bind="attr:{src: image}"/></div>
+                <div class="uba-dhlexpress-delivery-service-option-title" data-bind="text: title"></div>
+                <span class="uba-dhlexpress-delivery-service-option-description" data-bind="text: description"></span>
+            </div>
+        </div>
+        <div id="uba-dhlexpress-deliveryservices-info-error" data-bind="i18n: 'Please wait...'" style="display: none;"></div>
+    </div>
+</div>

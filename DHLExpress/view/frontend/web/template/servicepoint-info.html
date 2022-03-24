@@ -1,0 +1,11 @@
+<div id="uba-dhlexpress-servicepoint-info"
+     data-bind="visible: UBA_DHLExpress_SelectedMethod() == 'dhlexpress_servicepoint'">
+    <div class="step-title" data-bind="i18n: 'DHL ServicePoint Options'"></div>
+    <p><span data-bind="i18n: 'You have selected'"></span> <strong><span
+            data-bind="text: UBA_DHLExpress_ServicePointName()"></span></strong>.</p>
+    <div id="uba-dhlexpress-servicepoint-info-error" style="display: none;"
+         data-bind="i18n: 'Please choose a DHL ServicePoint.'"></div>
+    <button id="uba-dhlexpress-servicepoint-button"
+            data-bind="text: UBA_DHLExpress_HasServicePoint() ? $t('Choose a different DHL ServicePoint') : $t('Please choose a DHL ServicePoint')">
+    </button>
+</div>

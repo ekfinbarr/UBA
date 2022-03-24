@@ -1,0 +1,79 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php /* @var $block \UBA\DHLExpress\Block\Adminhtml\Authentication\Test */ ?>
+<script type="text/javascript">
+require([
+    'jquery',
+    'prototype',
+    'mage/backend/validation',
+    'jquery/validate'
+], function(jQuery){
+    jQuery('#dhlexpress_authentication_test').click(function () {
+        let data = {};
+        if(jQuery('#carriers_dhlexpress_api_user').length === 1 && jQuery('#carriers_dhlexpress_api_key').length === 1){
+            data = {
+                'userId' : jQuery('#carriers_dhlexpress_api_user').val(),
+                'apiKey' : jQuery('#carriers_dhlexpress_api_key').val()
+            };
+        } else {
+            data = {
+                'nokey': 1
+            }
+        }
+        jQuery.ajax({
+            url: "<?php echo $block->getAjaxUrl(); ?>",
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            showLoader: true,
+        }).done(function(returnData){
+            // Replace OrganizationID
+            if (returnData.status == 'success') {
+                // Autenticaton Succesfull
+                jQuery('#dhlexpress_authentication_test')?.removeClass('error')?.addClass('success');
+            } else {
+                // Failed
+                jQuery('#dhlexpress_authentication_test')?.removeClass('success')?.addClass('error');
+
+                // Empty Account & Organization ID Fields
+                jQuery('#carriers_dhlexpress_api_account_id')?.val('');
+            }
+
+            jQuery('#row_carriers_dhlexpress_api_test_authentication p.note span').text(returnData.message);
+        });
+
+    });
+
+    if (jQuery('#carriers_dhlexpress_api_account_id_inherit').length === 1 && jQuery('#carriers_dhlexpress_api_account_id_inherit').length === 1) {
+        if (jQuery('#carriers_dhlexpress_api_account_id_inherit').prop('checked') === false) {
+            jQuery('#carriers_dhlexpress_api_test_authentication_inherit').prop('checked', false)
+        } else if (jQuery('#carriers_dhlexpress_api_test_authentication_inherit').prop('checked') === true) {
+            jQuery('#dhlexpress_authentication_test').addClass('disabled');
+        }
+        jQuery('#carriers_dhlexpress_api_account_id_inherit, #carriers_dhlexpress_api_test_authentication_inherit').change(function () {
+            let checked = jQuery(this).prop('checked');
+            jQuery('#carriers_dhlexpress_api_account_id_inherit, #carriers_dhlexpress_api_test_authentication_inherit').prop('checked',checked);
+            if(checked){
+                jQuery('#dhlexpress_authentication_test').addClass('disabled');
+                jQuery('#carriers_dhlexpress_api_account_id').prop('disabled',true);
+            }else{
+                jQuery('#dhlexpress_authentication_test').removeClass('disabled');
+                jQuery('#carriers_dhlexpress_api_account_id').prop('disabled',false);
+
+
+            }
+        });
+
+    }
+});
+</script>
+
+<?= $block->getButtonHtml() ?>

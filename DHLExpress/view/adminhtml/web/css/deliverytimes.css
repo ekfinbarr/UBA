@@ -1,0 +1,87 @@
+/* Column */
+.uba-dhlexpress-deliverytimes-column-content {
+    overflow: hidden;
+}
+
+.uba-dhlexpress-deliverytimes-receiving-day,
+.uba-dhlexpress-deliverytimes-shipping-day {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.uba-dhlexpress-deliverytimes-shipping-day-content {
+    line-height: normal;
+    text-align: center;
+    border-radius: 4px;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    padding: 8px;
+}
+
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-asap {
+    background: #eba3a3;
+}
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-asap p {
+    color: #761919;
+}
+
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-soon {
+    background: #f8dda7;
+}
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-soon p {
+    color: #94660c;
+}
+
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-today {
+    background: #c6e1c6;
+}
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-today p {
+    color: #5b841b;
+}
+
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-backlog {
+    background: #c8d7e1;
+}
+.uba-dhlexpress-deliverytimes-shipping-day-content.uba-dhlexpress-advice-backlog p {
+    color: #2e4453;
+}
+
+.uba-dhlexpress-deliverytimes-receiving-day-content {
+    line-height: normal;
+    text-align: left;
+}
+
+.uba-dhlexpress-label-chip {
+    display: inline-block;
+    line-height: normal;
+    text-align: center;
+    padding: 2px 2px 0 2px;
+    margin-bottom: 3px;
+    background: rgba(188, 188, 188, 0.4);
+}
+.uba-dhlexpress-label-chip a,
+.uba-dhlexpress-label-chip .uba-dhlexpress-service-options-wrapper {
+    white-space: nowrap;
+}
+
+.uba-dhlexpress-label-chip a {
+    display: block;
+    line-height: normal;
+    text-align: center;
+    padding: 4px 25px;
+    background: #514943;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.uba-dhlexpress-service-option-chip {
+    display: inline-block;
+    line-height: normal;
+    text-align: center;
+    border-radius: 2px;
+    border-bottom: 1px solid rgba(0,0,0,.5);
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 75%;
+    margin: 0 1px 1px 1px;
+}
+

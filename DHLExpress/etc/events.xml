@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- <event name="sales_model_service_quote_submit_before">
+        <observer name="uba_dhlexpress_checkout_servicepoint" instance="UBA\DHLExpress\Observer\Checkout\ServicePoint"/>
+        <observer name="uba_dhlexpress_checkout_deliverytimes" instance="UBA\DHLExpress\Observer\Checkout\DeliveryTimes"/>
+        <observer name="uba_dhlexpress_checkout_deliveryservices" instance="UBA\DHLExpress\Observer\Checkout\DeliveryServices"/>
+        <observer name="uba_dhlexpress_checkout_sameday" instance="UBA\DHLExpress\Observer\Checkout\Sameday"/>
+    </event>
+    <event name="backend_auth_user_login_success">
+        <observer name="uba_dhlexpress_login_success_observer" instance="UBA\DHLExpress\Observer\AdminLogin" />
+    </event>
+    <event name="email_order_set_template_vars_before">
+        <observer name="uba_dhlexpress_email_servicepoint" instance="UBA\DHLExpress\Observer\EmailServicePoint" />
+    </event>
+    <event name="email_invoice_set_template_vars_before">
+        <observer name="uba_dhlexpress_email_servicepoint" instance="UBA\DHLExpress\Observer\EmailServicePoint" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="uba_dhlexpress_auto_shipment" instance="UBA\DHLExpress\Observer\AutoShipment"/>
+        <observer name="uba_dhlexpress_auto_mail" instance="UBA\DHLExpress\Observer\AutoMail"/>
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer name="uba_dhlexpress_shipment" instance="UBA\DHLExpress\Observer\Shipment"/>
+    </event> -->
+</config>

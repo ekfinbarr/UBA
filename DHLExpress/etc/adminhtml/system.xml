@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <!-- DHL PARCEL -->
+            <group id="dhlexpress" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>DHL Express Shipping Rates</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enabled</label>
+                    <tooltip>Enable DHL Express Shipping</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="version" translate="label" type="UBA\DHLExpress\Block\Adminhtml\System\VersionField" sortOrder="004" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extension version</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                 <field id="sort_order" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                     <label>Sort Order</label>
+                 </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <comment>When no valid method is available the error message below is shown</comment>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+
+                <group id="api" translate="label" type="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Settings</label>
+                    <field id="user" type="text" translate="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>API UserId</label>
+                        <comment>Please enter the API userId</comment>
+                    </field>
+                    <field id="key" type="text" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>API Key</label>
+                        <comment>Please enter the API key</comment>
+                    </field>
+                    <field id="server" type="select" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>API Server</label>
+                        <comment>Please select server</comment>
+                        <source_model>UBA\DHLExpress\Model\Config\Source\ExpressServer</source_model>
+                    </field>
+                    <field id="test_authentication" translate="label comment" type="button" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <frontend_model>UBA\DHLExpress\Block\Adminhtml\Authentication\Test</frontend_model>
+                        <comment>Make sure to test your filled credentials. We will attempt a connection to validate the credentials provided</comment>
+                    </field>
+                    <field id="account_id" type="text" translate="label" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>My DHL Express Shipping Account ID</label>
+                        <comment>Please enter your MDP account ID</comment>
+                    </field>
+                    <field id="export_account" type="text" translate="label" sortOrder="450" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Export Account</label>
+                        <comment>Please enter your DHL international export account</comment>
+                        <depends>
+                            <field id="server" separator=",">https://api-mock.dhl.com/mydhlapi,https://express.api.dhl.com/mydhlapi/test,https://express.api.dhl.com/mydhlapi</field>
+                        </depends>
+                    </field>
+                    <field id="import_account" type="text" translate="label" sortOrder="460" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Import Account</label>
+                        <comment>Please enter your DHL international import account</comment>
+                        <depends>
+                            <field id="server" separator=",">https://api-mock.dhl.com/mydhlapi,https://express.api.dhl.com/mydhlapi/test,https://express.api.dhl.com/mydhlapi</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="shipping_methods" translate="label" type="label" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Methods</label>
+                    <group id="standard" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Standard</label>
+                        <field id="enabled" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="title" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Title</label>
+                            <comment>Leave empty to use default title</comment>
+                        </field>
+                        <field id="rate_method" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Pricing method</label>
+                            <source_model>UBA\DHLExpress\Model\Config\Source\RateMethod</source_model>
+                        </field>
+                        <field id="price" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Flat price</label>
+                            <depends>
+                                <field id="rate_method">0</field>
+                            </depends>
+                        </field>
+                        <field id="express_weight_threshold" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Express Weight Threshold</label>
+                            <depends>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="rate_condition" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Condition</label>
+                            <source_model>UBA\DHLExpress\Model\Config\Source\RateConditions</source_model>
+                            <depends>
+                                <field id="rate_method">1</field>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="export" translate="label" type="UBA\DHLExpress\Block\Adminhtml\VariableRate\ExportField" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Export</label>
+                            <depends>
+                                <field id="rate_method">1</field>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="import" translate="label" type="UBA\DHLExpress\Block\Adminhtml\VariableRate\ImportField" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Import</label>
+                            <backend_model>UBA\DHLExpress\Model\Config\Backend\ImportRate</backend_model>
+                            <depends>
+                                <field id="rate_method">1</field>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                    </group>
+                    <group id="free_shipping" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Free Shipping</label>
+                        <field id="enabled" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="title" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Title</label>
+                            <comment>Leave empty to use default title</comment>
+                            <depends>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="price" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Flat price</label>
+                            <depends>
+                                <field id="rate_method">1</field>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                    </group>
+                    <group id="express" translate="label" type="text" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Express</label>
+                        <field id="enabled" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="title" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Title</label>
+                            <comment>Leave empty to use default title</comment>
+                            <depends>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="price" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Flat price</label>
+                            <depends>
+                                <field id="rate_method">0</field>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="express_weight_threshold" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Express Weight Threshold</label>
+                            <depends>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                        <field id="google_maps_api_key" translate="label" type="text" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <tooltip>This is required to use the ServicePoint selector</tooltip>
+                            <comment><![CDATA[Please configure your credentials for Google Maps. No Google Maps Javascript API credentials yet? Follow the instructions <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a> on how to get the API key.]]></comment>
+                            <label>Google Maps Javascript API Key</label>
+                            <depends>
+                                <field id="enabled">1</field>
+                            </depends>
+                        </field>
+                    </group>
+                </group>
+
+                <group id="delivery_times" translate="label" type="label" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery Times</label>
+                    <field id="enabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enabled</label>
+                        <comment>Enable customers to select their preferred delivery times</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="in_stock_only" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>In stock only</label>
+                        <comment>Enable delivery times for products in stock only</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="display_days" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Number of days</label>
+                        <comment>Show the number of days ahead of time in the checkout</comment>
+                        <source_model>UBA\DHLExpress\Model\Config\Source\DeliveryTimes\DisplayDays</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="transit_days" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Transit time</label>
+                        <comment>Expected number of days for delivery</comment>
+                        <source_model>UBA\DHLExpress\Model\Config\Source\DeliveryTimes\TransitDays</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="shipping_days" translate="Module" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Ship on the following days</label>
+                        <source_model>Magento\Config\Model\Config\Source\Locale\Weekdays</source_model>
+                    </field>
+                    <field id="cutoff" translate="Module" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Cutoff time</label>
+                        <comment>Set the cutoff time for an order to be eligable for the regular transit time</comment>
+                        <source_model>UBA\DHLExpress\Model\Config\Source\DeliveryTimes\CutoffTime</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="save_to_shippingdescription" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Save preferred date to 'Shipping Description'</label>
+                        <comment>Save the preferred shipping date to the order's 'Shipping Description' when a date is selected.</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="shipper" translate="label" type="label" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Address</label>
+                    <field id="company_name" type="text" translate="label" sortOrder="301" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Company name</label>
+                        <comment>Please enter the shipper company name</comment>
+                    </field>
+                    <field id="first_name" type="text" translate="label" sortOrder="302" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>First name</label>
+                        <comment>Please enter the shipper first name</comment>
+                    </field>
+                    <field id="last_name" type="text" translate="label" sortOrder="303" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Last name</label>
+                        <comment>Please enter the shipper last name</comment>
+                    </field>
+                    <field id="street" type="text" translate="label" sortOrder="304" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Street name</label>
+                        <comment>Please enter the shipper street name</comment>
+                    </field>
+                    <field id="house_number" type="text" translate="label" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Housenumber</label>
+                        <comment>Please enter the shipper housenumber</comment>
+                    </field>
+                    <field id="house_number_addition" type="text" translate="label" sortOrder="306" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Housenumber addition</label>
+                        <comment>Please enter the shipper housenumber addition</comment>
+                    </field>
+                    <field id="postal_code" type="text" translate="label" sortOrder="307" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Postal Code</label>
+                        <comment>Please enter the shipper postal code</comment>
+                    </field>
+                    <field id="city" type="text" translate="label" sortOrder="308" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>City</label>
+                        <comment>Please enter the shipper city</comment>
+                    </field>
+                    <field id="country_code" translate="label" type="multiselect" sortOrder="309" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Country</label>
+                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                        <can_be_empty>0</can_be_empty>
+                    </field>
+                    <field id="email" type="text" translate="label" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>E-mailadress</label>
+                        <comment>Please enter the shipper emailaddress</comment>
+                    </field>
+                    <field id="phone" type="text" translate="label" sortOrder="311" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Phonenumber</label>
+                        <comment>Please enter the shipper phone</comment>
+                    </field>
+
+                    <field id="alternative_return_address" translate="label" type="select" sortOrder="403" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Alternative Return Address</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Set a different address for return labels</comment>
+                    </field>
+                    <group id="return" translate="label" type="label" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Return Address</label>
+                        <attribute type="expanded">1</attribute>
+                        <depends>
+                            <field id="alternative_return_address">1</field>
+                        </depends>
+                        <field id="company_name" type="text" translate="label" sortOrder="301" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Company name</label>
+                            <comment>Please enter the shipper company name</comment>
+                        </field>
+                        <field id="first_name" type="text" translate="label" sortOrder="302" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>First name</label>
+                            <comment>Please enter the shipper first name</comment>
+                        </field>
+                        <field id="last_name" type="text" translate="label" sortOrder="303" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Last name</label>
+                            <comment>Please enter the shipper last name</comment>
+                        </field>
+                        <field id="street" type="text" translate="label" sortOrder="304" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Street name</label>
+                            <comment>Please enter the shipper street name</comment>
+                        </field>
+                        <field id="house_number" type="text" translate="label" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Housenumber</label>
+                            <comment>Please enter the shipper housenumber</comment>
+                        </field>
+                        <field id="house_number_addition" type="text" translate="label" sortOrder="306" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Housenumber addition</label>
+                            <comment>Please enter the shipper housenumber addition</comment>
+                        </field>
+                        <field id="postal_code" type="text" translate="label" sortOrder="307" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Postal Code</label>
+                            <comment>Please enter the shipper postal code</comment>
+                        </field>
+                        <field id="city" type="text" translate="label" sortOrder="308" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>City</label>
+                            <comment>Please enter the shipper city</comment>
+                        </field>
+                        <field id="email" type="text" translate="label" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>E-mailadress</label>
+                            <comment>Please enter the shipper emailaddress</comment>
+                        </field>
+                        <field id="phone" type="text" translate="label" sortOrder="311" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Phonenumber</label>
+                            <comment>Please enter the shipper phone</comment>
+                        </field>
+                    </group>
+                </group>
+
+                <group id="debug" translate="label" type="label" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Developer Settings</label>
+                    <field id="enabled" translate="label" type="select" sortOrder="100"  showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Debug mode</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="log_buttons" translate="label" type="button" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Debug log</label>
+                        <frontend_model>UBA\DHLExpress\Block\Adminhtml\System\LogButtonsField</frontend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="save_label_requests" translate="label" type="select" sortOrder="201" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Save label requests</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="alternative_api_enable" translate="label" type="select" sortOrder="300"  showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Enable alternative API</label>
+                        <comment>Enables API URL override</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="alternative_api_url" translate="label" type="text" sortOrder="400"  showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Alternative API URL</label>
+                        <depends>
+                            <field id="alternative_api_enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="capabilities" translate="label" type="label" sortOrder="950" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Capability Settings</label>
+                    <field id="capability" translate="label" type="select" sortOrder="100"  showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Preferred Type</label>
+                        <source_model>UBA\DHLExpress\Model\Config\Source\ExpressCapability</source_model>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>
